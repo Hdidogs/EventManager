@@ -3,7 +3,6 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +14,8 @@ Route::get('/createevent', function () {
     }
     return view('event.create');
 })->middleware(['auth', 'verified'])->name('event.create');
+Route::post('/inscrire/{eventId}', [DashboardController::class, 'inscrire'])->name('events.inscrire');
+Route::post('/desinscrire/{eventId}', [DashboardController::class, 'desinscrire'])->name('events.desinscrire');
 
 Route::resource('events', EventController::class);
 
