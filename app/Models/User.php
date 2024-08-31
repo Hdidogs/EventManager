@@ -17,9 +17,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -54,5 +56,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Event::class);
     }
-
 }
