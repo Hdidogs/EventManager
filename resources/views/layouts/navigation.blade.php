@@ -19,7 +19,7 @@
                             <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
                                     <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                        <div>{{ Auth::user()->name }}</div>
+                                        <div>{{ Auth::user()->nom . " " . Auth::user()->prenom  }}</div>
 
                                         <div class="ms-1">
                                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -31,8 +31,22 @@
 
                                 <x-slot name="content">
                                     <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Profile') }}
+                                        {{ __('Profil') }}
                                     </x-dropdown-link>
+
+                                    <!-- Panel Organisateur -->
+                                    @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                                        <x-dropdown-link :href="route('event.gestionevent')">
+                                            {{ __('Gestion des Évenement') }}
+                                        </x-dropdown-link>
+                                    @endif
+
+                                    <!-- Panel Administrateur -->
+                                    @if(Auth::user()->role_id == 1)
+                                        <x-dropdown-link :href="route('admin.paneladmin')">
+                                            {{ __('Panel Administrateur') }}
+                                        </x-dropdown-link>
+                                    @endif
 
                                     <!-- Authentication -->
                                     <form method="POST" action="{{ route('logout') }}">
@@ -41,7 +55,7 @@
                                         <x-dropdown-link :href="route('logout')"
                                                          onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                            {{ __('Log Out') }}
+                                            {{ __('Déconnexion') }}
                                         </x-dropdown-link>
                                     </form>
                                 </x-slot>
@@ -52,7 +66,7 @@
                             href="{{ route('login') }}"
                             class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                         >
-                            Log in
+                            Connexion
                         </a>
 
                         @if (Route::has('register'))
@@ -60,7 +74,7 @@
                                 href="{{ route('register') }}"
                                 class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                             >
-                                Register
+                                Incription
                             </a>
                         @endif
                     @endauth

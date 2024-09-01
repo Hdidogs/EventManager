@@ -1,4 +1,4 @@
-<x-guest-layout>
+<section>
     <form method="POST" action="{{ route('events.store') }}">
         @csrf
 
@@ -19,14 +19,14 @@
         <!-- Date -->
         <div class="mt-4">
             <x-input-label for="date" :value="__('Date')" />
-            <x-text-input id="date" class="block mt-1 w-full" type="date" name="date" :value="old('date')" required autocomplete="date" />
+            <x-text-input id="date" class="block mt-1 w-full" type="datetime-local" name="date" :value="old('date')" required autocomplete="date" />
             <x-input-error :messages="$errors->get('date')" class="mt-2" />
         </div>
 
         <!-- Nombre de place -->
         <div class="mt-4">
             <x-input-label for="nombre_de_places" :value="__('Nombre de place')" />
-            <x-text-input id="nombre_de_places" class="block mt-1 w-full" type="number" name="nombre_de_places" :value="old('nombre_de_places')" required autocomplete="nombre_de_places" />
+            <x-text-input id="nombre_de_places" class="block mt-1 w-full" type="number" min="1" name="nombre_de_places" :value="old('nombre_de_places')" required autocomplete="nombre_de_places" />
             <x-input-error :messages="$errors->get('nombre_de_places')" class="mt-2" />
         </div>
 
@@ -36,4 +36,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</section>

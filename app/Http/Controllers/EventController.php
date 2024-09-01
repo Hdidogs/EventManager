@@ -67,18 +67,34 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $event = Event::findOrFail($id);
+        return view('events.edit', compact('event'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $event = Event::findOrFail($id);
+
+        // Valider les données du formulaire
+        $validatedData = $request->validate([
+            'titre' => 'required|string|max:255',
+            'description' => 'required|string',
+            'date' => 'required|date',
+            'nombre_de_places' => 'required|integer|min:1',
+        ]);
+
+        // Mettre à jour l'événement avec les données validées
+        $event->update($validatedData);
+
+        // Rediriger l'utilisateur avec un message de succès
+        return redirect()->route('events.index')->with('success', 'Événement modifié avec succès !');
     }
+
 
     /**
      * Remove the specified resource from storage.
